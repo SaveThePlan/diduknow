@@ -19,6 +19,24 @@ RSpec.describe User, type: :model do
   end
 
 
+  context 'relations' do
+    describe 'roles' do
+      subject { create :user }
+
+      describe '.add_role' do
+        it { should respond_to(:add_role) }
+      end
+
+      describe '.has_role?' do
+        before { subject.add_role :admin }
+        it { should respond_to(:has_role?) }
+        it { expect(subject.has_role? :admin).to be true }
+        it { expect(subject.has_role? :wrong).to be false }
+      end
+    end
+  end
+
+
   context 'attributes' do
     let(:email) { 'my.email@example.com' }
 

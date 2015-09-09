@@ -7,6 +7,8 @@ gem 'rails', '4.2.4'
 # --------- Storages --------- #
 # Use postgresql as the database for Active Record
 gem 'pg'
+# some roles for users
+gem 'rolify'
 
 # ------ Authentication ------ #
 # Use devise for authentication
