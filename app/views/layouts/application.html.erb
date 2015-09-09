@@ -10,7 +10,19 @@
 </head>
 <body>
 
-<%= yield %>
+<div class="navbar navbar-default navbar-inverse navbar-fixed-top custom-navbar">
+  <div class="container">
+    <%= link_to t('views.layouts.application.title'), :root, class: 'root-link' %>
+  </div>
+</div>
+
+<div class="main">
+  <%= render 'shared/flash_msg', flash: flash %>
+
+  <div class="row row-centered relative">
+    <%= yield %>
+  </div>
+</div>
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>

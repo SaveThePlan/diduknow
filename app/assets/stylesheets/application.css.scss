@@ -9,3 +9,29 @@
 @import "bootstrap-datetimepicker";
 
 @import "jquery-tablesorter/theme.default";
+
+// load colors and co
+@import "variables";
+@import "buttons";
+
+// basic page elements
+html, body
+{
+  background-color: $backgroundColor;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+* {
+  font-family: helvetica, Arial, sans-serif;
+  font-size: 1em;
+}
+
+.relative {
+  position: relative;
+}
+
+@import "main";
