@@ -1,4 +1,4 @@
-//*= require filename
+// require filename
 
 $(document).ready(function () {
     $(".tablesorter").tablesorter();
