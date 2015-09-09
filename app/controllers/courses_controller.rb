@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = current_user.courses
   end
 
   # GET /courses/1
@@ -24,7 +24,7 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    @course = Course.new(course_params.merge(user: current_user))
 
     respond_to do |format|
       if @course.save

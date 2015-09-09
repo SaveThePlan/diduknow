@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
 
   include PermitsAttributes
 
+  has_many :courses, inverse_of: :user, dependent: :destroy
+
 end

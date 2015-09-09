@@ -16,6 +16,20 @@ RSpec.describe Course, type: :model do
       it { expect(b_course).to be_valid }
       it { expect(build :course, title: nil).to_not be_valid }
     end
+
+    describe 'presence of user' do
+      it { expect(b_course).to be_valid }
+      it { expect(build :course, user: nil).to_not be_valid }
+    end
+  end
+
+
+  context 'relations' do
+    describe '.user (belongs to)' do
+      subject { b_course }
+      it { expect(subject).to respond_to(:user) }
+      it { expect(subject.user).to be_a User }
+    end
   end
 
 

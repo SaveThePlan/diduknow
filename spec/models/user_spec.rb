@@ -20,6 +20,13 @@ RSpec.describe User, type: :model do
 
 
   context 'relations' do
+    describe '.courses (has_many)' do
+      subject { create :user_with_courses, courses_count: 2 }
+      it { expect(subject).to respond_to(:courses) }
+      it { expect(subject.courses.length).to eq 2 }
+      it { expect(subject.courses.first).to be_a Course }
+    end
+
     describe 'roles' do
       subject { create :user }
 

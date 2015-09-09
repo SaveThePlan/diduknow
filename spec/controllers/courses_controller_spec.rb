@@ -20,7 +20,8 @@ RSpec.describe CoursesController, type: :controller do
 
   describe "GET #index" do
     it "assigns all courses as @courses" do
-      course = create :course
+      course = create :course, user: user
+      fake_course = create :course
       get :index, {}, valid_session
       expect(assigns(:courses)).to eq([course])
     end
@@ -61,6 +62,11 @@ RSpec.describe CoursesController, type: :controller do
         post :create, {:course => valid_attributes}, valid_session
         expect(assigns(:course)).to be_a(Course)
         expect(assigns(:course)).to be_persisted
+      end
+
+      it "link newly created course to user" do
+        post :create, {:course => valid_attributes}, valid_session
+        expect(assigns(:course).user).to eq user
       end
 
       it "redirects to the created course" do
