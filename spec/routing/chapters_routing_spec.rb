@@ -4,11 +4,11 @@ RSpec.describe ChaptersController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/chapters").to route_to("chapters#index")
+      expect(:get => "/courses/11/chapters").to route_to("chapters#index", course_id: "11")
     end
 
     it "routes to #new" do
-      expect(:get => "/chapters/new").to route_to("chapters#new")
+      expect(:get => "/courses/11/chapters/new").to route_to("chapters#new", course_id: "11")
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ RSpec.describe ChaptersController, type: :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/chapters").to route_to("chapters#create")
+      expect(:post => "/courses/11/chapters").to route_to("chapters#create", course_id: "11")
     end
 
     it "routes to #update via PUT" do

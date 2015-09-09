@@ -17,19 +17,19 @@ RSpec.describe Chapter, type: :model do
       it { expect(build :chapter, title: nil).to_not be_valid }
     end
 
-    # describe 'presence of user' do
-    #   it { expect(b_course).to be_valid }
-    #   it { expect(build :course, user: nil).to_not be_valid }
-    # end
+    describe 'presence of course' do
+      it { expect(b_chapter).to be_valid }
+      it { expect(build :chapter, course: nil).to_not be_valid }
+    end
   end
 
 
   context 'relations' do
-    # describe '.user (belongs to)' do
-    #   subject { b_course }
-    #   it { expect(subject).to respond_to(:user) }
-    #   it { expect(subject.user).to be_a User }
-    # end
+    describe '.course (belongs to)' do
+      subject { b_chapter }
+      it { expect(subject).to respond_to(:course) }
+      it { expect(subject.course).to be_a Course }
+    end
   end
 
 

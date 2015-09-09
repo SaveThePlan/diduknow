@@ -1,7 +1,8 @@
-<%= simple_form_for(@chapter) do |f| %>
+<%= simple_form_for([@course, @chapter]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.hidden_field :course_id %>
     <%= f.input :title %>
   </div>
 

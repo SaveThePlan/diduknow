@@ -30,6 +30,13 @@ RSpec.describe Course, type: :model do
       it { expect(subject).to respond_to(:user) }
       it { expect(subject.user).to be_a User }
     end
+
+    describe '.chapters (has_many)' do
+      subject { create :course_with_chapters, chapters_count: 2 }
+      it { expect(subject).to respond_to(:chapters) }
+      it { expect(subject.chapters.length).to eq 2 }
+      it { expect(subject.chapters.first).to be_a Chapter }
+    end
   end
 
 

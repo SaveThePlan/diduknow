@@ -2,9 +2,9 @@ class Chapter < ActiveRecord::Base
 
   include PermitsAttributes
 
-  # belongs_to :user, inverse_of: :courses
+  belongs_to :course, inverse_of: :chapters
 
   validates :title, presence: true
-  # validates :user, presence: true
+  validates :course, presence: true
 
 end

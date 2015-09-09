@@ -13,15 +13,22 @@ RSpec.describe ChaptersController, type: :controller do
   let(:valid_session) { {} }
 
   let(:user) {create :user}
+  let!(:course) {create :course, user: user}
 
   before do
     user_signed_in user
   end
 
   describe "GET #index" do
-    it "assigns all chapters as @chapters" do
-      chapter = create :chapter
-      get :index, {}, valid_session
+    it "assigns course as @course" do
+      get :index, {course_id: course.to_param}, valid_session
+      expect(assigns(:course)).to eq course
+    end
+
+    it "assigns all course chapters as @chapters" do
+      chapter = create :chapter, course: course
+      fake_chapter = create :chapter
+      get :index, {course_id: course.to_param}, valid_session
       expect(assigns(:chapters)).to eq([chapter])
     end
   end
@@ -35,9 +42,10 @@ RSpec.describe ChaptersController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new chapter as @chapter" do
-      get :new, {}, valid_session
+    it "assigns a new chapter linked to course as @chapter" do
+      get :new, {course_id: course.to_param}, valid_session
       expect(assigns(:chapter)).to be_a_new(Chapter)
+      expect(assigns(:chapter).course).to eq course
     end
   end
 
@@ -53,30 +61,35 @@ RSpec.describe ChaptersController, type: :controller do
     context "with valid params" do
       it "creates a new Chapter" do
         expect {
-          post :create, {:chapter => valid_attributes}, valid_session
+          post :create, {course_id: course.to_param, chapter: valid_attributes}, valid_session
         }.to change(Chapter, :count).by(1)
       end
 
       it "assigns a newly created chapter as @chapter" do
-        post :create, {:chapter => valid_attributes}, valid_session
+        post :create, {course_id: course.to_param, chapter: valid_attributes}, valid_session
         expect(assigns(:chapter)).to be_a(Chapter)
         expect(assigns(:chapter)).to be_persisted
       end
 
+      it "link newly created chapter to course" do
+        post :create, {course_id: course.to_param, chapter: valid_attributes}, valid_session
+        expect(assigns(:chapter).course).to eq course
+      end
+
       it "redirects to the created chapter" do
-        post :create, {:chapter => valid_attributes}, valid_session
+        post :create, {course_id: course.to_param, chapter: valid_attributes}, valid_session
         expect(response).to redirect_to(Chapter.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved chapter as @chapter" do
-        post :create, {:chapter => invalid_attributes}, valid_session
+        post :create, {course_id: course.to_param, chapter: invalid_attributes}, valid_session
         expect(assigns(:chapter)).to be_a_new(Chapter)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:chapter => invalid_attributes}, valid_session
+        post :create, {course_id: course.to_param, chapter: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -125,16 +138,16 @@ RSpec.describe ChaptersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested chapter" do
-      chapter = create :chapter
+      chapter = create :chapter, course: course
       expect {
-        delete :destroy, {:id => chapter.to_param}, valid_session
+        delete :destroy, {course_id: course.to_param, :id => chapter.to_param}, valid_session
       }.to change(Chapter, :count).by(-1)
     end
 
     it "redirects to the chapters list" do
-      chapter = create :chapter
-      delete :destroy, {:id => chapter.to_param}, valid_session
-      expect(response).to redirect_to(chapters_url)
+      chapter = create :chapter, course: course
+      delete :destroy, {course_id: course.to_param, :id => chapter.to_param}, valid_session
+      expect(response).to redirect_to(course)
     end
   end
 

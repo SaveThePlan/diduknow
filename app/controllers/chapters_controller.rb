@@ -1,10 +1,11 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:index, :new, :create]
 
   # GET /chapters
   # GET /chapters.json
   def index
-    @chapters = Chapter.all
+    @chapters = @course.chapters
   end
 
   # GET /chapters/1
@@ -14,7 +15,7 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/new
   def new
-    @chapter = Chapter.new
+    @chapter = @course.chapters.build
   end
 
   # GET /chapters/1/edit
@@ -24,7 +25,7 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(chapter_params)
+    @chapter = Chapter.new(chapter_params.merge(course: @course))
 
     respond_to do |format|
       if @chapter.save
@@ -54,9 +55,10 @@ class ChaptersController < ApplicationController
   # DELETE /chapters/1
   # DELETE /chapters/1.json
   def destroy
+    @course = @chapter.course
     @chapter.destroy
     respond_to do |format|
-      format.html { redirect_to chapters_url, notice: 'Chapter was successfully destroyed.' }
+      format.html { redirect_to @course, notice: 'Chapter was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,6 +66,10 @@ class ChaptersController < ApplicationController
   private
   def set_chapter
     @chapter = Chapter.find(params[:id])
+  end
+
+  def set_course
+    @course = Course.find(params[:course_id])
   end
 
   def chapter_params

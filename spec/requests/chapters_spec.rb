@@ -12,7 +12,8 @@ RSpec.describe "Chapters", type: :request do
 
   describe "GET /chapters" do
     it "works! (now write some real specs)" do
-      get chapters_path
+      course = create :course
+      get course_chapters_path(course)
       expect(response).to have_http_status(200)
     end
   end
