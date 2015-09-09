@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: diduknow
+  password: diduknow
+
+development:
+  <<: *default
+  database: diduknow_dev
+
+test:
+  <<: *default
+  database: diduknow_test
+
+production:
+  <<: *default
+  database: diduknow_prod
