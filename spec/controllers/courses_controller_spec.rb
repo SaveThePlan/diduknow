@@ -12,6 +12,12 @@ RSpec.describe CoursesController, type: :controller do
 
   let(:valid_session) { {} }
 
+  let(:user) {create :user}
+
+  before do
+    user_signed_in user
+  end
+
   describe "GET #index" do
     it "assigns all courses as @courses" do
       course = create :course

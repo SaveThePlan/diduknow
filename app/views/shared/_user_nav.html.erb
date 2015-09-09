@@ -5,6 +5,12 @@
   </a>
 
   <ul class="dropdown-menu">
+    <% if session.key?(:act_as) %>
+        <li><%= link_to 'be myself', myself_again_users_path, method: :delete %></li>
+    <% elsif current_user.has_role? :admin %>
+        <li><%= link_to 'all users', users_path %></li>
+    <% end %>
+
     <li><%= link_to 'my account', edit_user_registration_path %></li>
     <li><%= link_to 'log out', destroy_user_session_path, method: :delete %></li>
   </ul>
