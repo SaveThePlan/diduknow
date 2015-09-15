@@ -139,7 +139,7 @@
 
   overflow: hidden;
 
-  h2 {
+  & > h2 {
     color: $whiteColor;
     background-color: $indigoColor;
     text-align: center;

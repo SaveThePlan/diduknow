@@ -1,9 +1,7 @@
 <div class="content-box col-centered">
   <h2><%= @lesson.title %></h2>
 
-  <p>
-    <%= @lesson.content %>
-  </p>
+  <div><%= @lesson.content.html_safe %></div>
 
   <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
   <%= link_to 'Back', @lesson.chapter %>
