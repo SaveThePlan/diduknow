@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :chapters
   end
 
+  resources :lessons
+
   root 'courses#index'
 
   resources :users, only: [:index] do

@@ -1,0 +1,10 @@
+<div class="content-box col-centered">
+  <h2><%= @lesson.title %></h2>
+
+  <p>
+    <%= @lesson.content %>
+  </p>
+
+  <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+  <%= link_to 'Back', lessons_path %>
+</div>
