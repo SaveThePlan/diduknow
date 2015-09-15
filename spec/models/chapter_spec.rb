@@ -30,6 +30,13 @@ RSpec.describe Chapter, type: :model do
       it { expect(subject).to respond_to(:course) }
       it { expect(subject.course).to be_a Course }
     end
+
+    describe '.lessons (has_many)' do
+      subject { create :chapter_with_lessons, lessons_count: 2 }
+      it { expect(subject).to respond_to(:lessons) }
+      it { expect(subject.lessons.length).to eq 2 }
+      it { expect(subject.lessons.first).to be_a Lesson }
+    end
   end
 
 

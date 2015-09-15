@@ -2,11 +2,12 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :courses, shallow: true  do
-    resources :chapters
+  resources :courses, shallow: true do
+    resources :chapters, shallow: true do
+      resources :lessons
+    end
   end
 
-  resources :lessons
 
   root 'courses#index'
 

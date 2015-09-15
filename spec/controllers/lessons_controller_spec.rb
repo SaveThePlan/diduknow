@@ -13,15 +13,22 @@ RSpec.describe LessonsController, type: :controller do
   let(:valid_session) { {} }
 
   let(:user) { create :user }
+  let!(:chapter) { create :chapter }
 
   before do
     user_signed_in user
   end
 
   describe "GET #index" do
+    it "assigns chapter as @chapter" do
+      get :index, {chapter_id: chapter.to_param}, valid_session
+      expect(assigns(:chapter)).to eq chapter
+    end
+
     it "assigns all lessons as @lessons" do
-      lesson = create :lesson
-      get :index, {}, valid_session
+      lesson = create :lesson, chapter: chapter
+      fake_lesson = create :lesson
+      get :index, {chapter_id: chapter.to_param}, valid_session
       expect(assigns(:lessons)).to eq([lesson])
     end
   end
@@ -36,8 +43,9 @@ RSpec.describe LessonsController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new lesson as @lesson" do
-      get :new, {}, valid_session
+      get :new, {chapter_id: chapter.to_param}, valid_session
       expect(assigns(:lesson)).to be_a_new(Lesson)
+      expect(assigns(:lesson).chapter).to eq chapter
     end
   end
 
@@ -53,30 +61,35 @@ RSpec.describe LessonsController, type: :controller do
     context "with valid params" do
       it "creates a new Lesson" do
         expect {
-          post :create, {:lesson => valid_attributes}, valid_session
+          post :create, {chapter_id: chapter.to_param, :lesson => valid_attributes}, valid_session
         }.to change(Lesson, :count).by(1)
       end
 
       it "assigns a newly created lesson as @lesson" do
-        post :create, {:lesson => valid_attributes}, valid_session
+        post :create, {chapter_id: chapter.to_param, :lesson => valid_attributes}, valid_session
         expect(assigns(:lesson)).to be_a(Lesson)
         expect(assigns(:lesson)).to be_persisted
       end
 
+      it "link newly created lesson to chapter" do
+        post :create, {chapter_id: chapter.to_param, :lesson => valid_attributes}, valid_session
+        expect(assigns(:lesson).chapter).to eq chapter
+      end
+
       it "redirects to the created lesson" do
-        post :create, {:lesson => valid_attributes}, valid_session
+        post :create, {chapter_id: chapter.to_param, :lesson => valid_attributes}, valid_session
         expect(response).to redirect_to(Lesson.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved lesson as @lesson" do
-        post :create, {:lesson => invalid_attributes}, valid_session
+        post :create, {chapter_id: chapter.to_param, :lesson => invalid_attributes}, valid_session
         expect(assigns(:lesson)).to be_a_new(Lesson)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:lesson => invalid_attributes}, valid_session
+        post :create, {chapter_id: chapter.to_param, :lesson => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -125,16 +138,16 @@ RSpec.describe LessonsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested lesson" do
-      lesson = create :lesson
+      lesson = create :lesson, chapter: chapter
       expect {
         delete :destroy, {:id => lesson.to_param}, valid_session
       }.to change(Lesson, :count).by(-1)
     end
 
     it "redirects to the lessons list" do
-      lesson = create :lesson
+      lesson = create :lesson, chapter: chapter
       delete :destroy, {:id => lesson.to_param}, valid_session
-      expect(response).to redirect_to(lessons_url)
+      expect(response).to redirect_to(chapter)
     end
   end
 

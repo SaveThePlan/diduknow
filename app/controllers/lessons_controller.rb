@@ -1,10 +1,11 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:index, :new, :create]
 
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = @chapter.lessons
   end
 
   # GET /lessons/1
@@ -14,7 +15,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/new
   def new
-    @lesson = Lesson.new
+    @lesson = @chapter.lessons.build
   end
 
   # GET /lessons/1/edit
@@ -24,7 +25,7 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
+    @lesson = Lesson.new(lesson_params.merge(chapter: @chapter))
 
     respond_to do |format|
       if @lesson.save
@@ -54,9 +55,10 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    @chapter = @lesson.chapter
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to @chapter, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,6 +66,10 @@ class LessonsController < ApplicationController
   private
   def set_lesson
     @lesson = Lesson.find(params[:id])
+  end
+
+  def set_chapter
+    @chapter = Chapter.find(params[:chapter_id])
   end
 
   def lesson_params

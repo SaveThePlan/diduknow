@@ -16,10 +16,20 @@ RSpec.describe Lesson, type: :model do
       it { expect(b_lesson).to be_valid }
       it { expect(build :lesson, title: nil).to_not be_valid }
     end
+
+    describe 'presence of chapter' do
+      it { expect(b_lesson).to be_valid }
+      it { expect(build :lesson, chapter: nil).to_not be_valid }
+    end
   end
 
 
   context 'relations' do
+    describe '.chapter (belongs to)' do
+      subject { b_lesson }
+      it { expect(subject).to respond_to(:chapter) }
+      it { expect(subject.chapter).to be_a Chapter }
+    end
   end
 
 

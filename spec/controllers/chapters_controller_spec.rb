@@ -140,13 +140,13 @@ RSpec.describe ChaptersController, type: :controller do
     it "destroys the requested chapter" do
       chapter = create :chapter, course: course
       expect {
-        delete :destroy, {course_id: course.to_param, :id => chapter.to_param}, valid_session
+        delete :destroy, {:id => chapter.to_param}, valid_session
       }.to change(Chapter, :count).by(-1)
     end
 
     it "redirects to the chapters list" do
       chapter = create :chapter, course: course
-      delete :destroy, {course_id: course.to_param, :id => chapter.to_param}, valid_session
+      delete :destroy, {:id => chapter.to_param}, valid_session
       expect(response).to redirect_to(course)
     end
   end

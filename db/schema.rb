@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915150132) do
+ActiveRecord::Schema.define(version: 20150915152152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,10 @@ ActiveRecord::Schema.define(version: 20150915150132) do
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "chapter_id"
   end
+
+  add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -79,4 +82,5 @@ ActiveRecord::Schema.define(version: 20150915150132) do
 
   add_foreign_key "chapters", "courses"
   add_foreign_key "courses", "users"
+  add_foreign_key "lessons", "chapters"
 end

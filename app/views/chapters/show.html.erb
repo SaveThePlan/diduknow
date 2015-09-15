@@ -1,5 +1,33 @@
 <div class="content-box col-centered">
-  <h2><%= @chapter.title %></h2>
+  <h2>
+    <%= @chapter.title %>
+    <div class="btn-group pull-right">
+      <%= link_to new_chapter_lesson_path(@chapter), class: 'btn btn-primary btn-xs' do %>
+          <span class="glyphicon glyphicon-plus"></span> New Lesson
+      <% end %>
+    </div>
+  </h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @chapter.lessons.each do |lesson| %>
+        <tr>
+          <td><%= lesson.title %></td>
+          <td><%= link_to 'Show', lesson %></td>
+          <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+          <td><%= link_to 'Destroy', lesson, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
 
   <%= link_to 'Edit', edit_chapter_path(@chapter) %> |
   <%= link_to 'Back', @chapter.course %>
