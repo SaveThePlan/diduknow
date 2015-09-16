@@ -1,0 +1,25 @@
+<div class="content-box col-centered">
+  <h2>Questions</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Statement</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @questions.each do |question| %>
+        <tr>
+          <td><%= question.statement %></td>
+          <td><%= link_to 'Show', question %></td>
+          <td><%= link_to 'Edit', edit_question_path(question) %></td>
+          <td><%= link_to 'Destroy', question, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Question', new_question_path %>
+</div>

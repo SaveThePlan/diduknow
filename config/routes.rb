@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :lessons
     end
   end
+  resources :questions
 
 
   root 'courses#index'
