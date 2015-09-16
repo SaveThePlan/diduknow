@@ -30,6 +30,13 @@ RSpec.describe Lesson, type: :model do
       it { expect(subject).to respond_to(:chapter) }
       it { expect(subject.chapter).to be_a Chapter }
     end
+
+    describe '.questions (has_many)' do
+      subject { create :lesson_with_questions, questions_count: 2 }
+      it { expect(subject).to respond_to(:questions) }
+      it { expect(subject.questions.length).to eq 2 }
+      it { expect(subject.questions.first).to be_a Question }
+    end
   end
 
 

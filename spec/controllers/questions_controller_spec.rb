@@ -13,15 +13,22 @@ RSpec.describe QuestionsController, type: :controller do
   let(:valid_session) { {} }
 
   let(:user) { create :user }
+  let!(:lesson) { create :lesson }
 
   before do
     user_signed_in user
   end
 
   describe "GET #index" do
+    it "assigns lesson as @lesson" do
+      get :index, {lesson_id: lesson.to_param}, valid_session
+      expect(assigns(:lesson)).to eq(lesson)
+    end
+
     it "assigns all questions as @questions" do
-      question = create :question
-      get :index, {}, valid_session
+      question = create :question, lesson: lesson
+      fake_question = create :question
+      get :index, {lesson_id: lesson.to_param}, valid_session
       expect(assigns(:questions)).to eq([question])
     end
   end
@@ -36,8 +43,9 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new question as @question" do
-      get :new, {}, valid_session
+      get :new, {lesson_id: lesson.to_param}, valid_session
       expect(assigns(:question)).to be_a_new(Question)
+      expect(assigns(:question).lesson).to eq lesson
     end
   end
 
@@ -53,30 +61,30 @@ RSpec.describe QuestionsController, type: :controller do
     context "with valid params" do
       it "creates a new Question" do
         expect {
-          post :create, {:question => valid_attributes}, valid_session
+          post :create, {lesson_id: lesson.to_param, :question => valid_attributes}, valid_session
         }.to change(Question, :count).by(1)
       end
 
       it "assigns a newly created question as @question" do
-        post :create, {:question => valid_attributes}, valid_session
+        post :create, {lesson_id: lesson.to_param, :question => valid_attributes}, valid_session
         expect(assigns(:question)).to be_a(Question)
         expect(assigns(:question)).to be_persisted
       end
 
       it "redirects to the created question" do
-        post :create, {:question => valid_attributes}, valid_session
+        post :create, {lesson_id: lesson.to_param, :question => valid_attributes}, valid_session
         expect(response).to redirect_to(Question.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved question as @question" do
-        post :create, {:question => invalid_attributes}, valid_session
+        post :create, {lesson_id: lesson.to_param, :question => invalid_attributes}, valid_session
         expect(assigns(:question)).to be_a_new(Question)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:question => invalid_attributes}, valid_session
+        post :create, {lesson_id: lesson.to_param, :question => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -125,16 +133,16 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested question" do
-      question = create :question
+      question = create :question, lesson: lesson
       expect {
         delete :destroy, {:id => question.to_param}, valid_session
       }.to change(Question, :count).by(-1)
     end
 
     it "redirects to the questions list" do
-      question = create :question
+      question = create :question, lesson: lesson
       delete :destroy, {:id => question.to_param}, valid_session
-      expect(response).to redirect_to(questions_url)
+      expect(response).to redirect_to(lesson)
     end
   end
 

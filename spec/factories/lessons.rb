@@ -7,6 +7,17 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     chapter
+
+    factory :lesson_with_questions do
+      transient do
+        questions_count 2
+      end
+
+      after(:create) do |obj, evaluator|
+        create_list(:question, evaluator.questions_count, lesson: obj)
+      end
+    end
+
   end
 
 end

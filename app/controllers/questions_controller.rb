@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:index, :new, :create]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = @lesson.questions
   end
 
   # GET /questions/1
@@ -14,7 +15,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @question = @lesson.questions.build
   end
 
   # GET /questions/1/edit
@@ -24,7 +25,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(question_params.merge(lesson: @lesson))
 
     respond_to do |format|
       if @question.save
@@ -54,9 +55,10 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    @lesson = @question.lesson
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to @lesson, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,6 +66,10 @@ class QuestionsController < ApplicationController
   private
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_lesson
+    @lesson = Lesson.find(params[:lesson_id])
   end
 
   def question_params

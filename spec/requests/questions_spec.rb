@@ -12,7 +12,8 @@ RSpec.describe "Questions", type: :request do
 
   describe "GET /questions" do
     it "works! (now write some real specs)" do
-      get questions_path
+      lesson = create :lesson
+      get lesson_questions_path(lesson)
       expect(response).to have_http_status(200)
     end
   end

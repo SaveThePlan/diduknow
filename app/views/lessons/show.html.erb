@@ -1,5 +1,12 @@
 <div class="content-box col-centered">
-  <h2><%= @lesson.title %></h2>
+  <h2>
+    <%= @lesson.title %>
+    <div class="btn-group pull-right">
+      <%= link_to lesson_questions_path(@lesson), class: 'btn btn-primary btn-xs' do %>
+          <span class="glyphicon glyphicon-th-list"></span> Questions
+      <% end %>
+    </div>
+  </h2>
 
   <div><%= @lesson.content.html_safe %></div>
 
