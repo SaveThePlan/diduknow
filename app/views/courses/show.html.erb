@@ -12,7 +12,7 @@
     <thead>
     <tr>
       <th>Title</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -20,9 +20,11 @@
     <% @course.chapters.each do |chapter| %>
         <tr>
           <td><%= chapter.title %></td>
-          <td><%= link_to 'Show', chapter %></td>
-          <td><%= link_to 'Edit', edit_chapter_path(chapter) %></td>
-          <td><%= link_to 'Destroy', chapter, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          <td>
+            <%= actions_group show_btn(chapter),
+                              edit_btn(edit_chapter_path(chapter)),
+                              delete_btn(chapter) %>
+          </td>
         </tr>
     <% end %>
     </tbody>

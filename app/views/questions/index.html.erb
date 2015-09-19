@@ -13,7 +13,7 @@
     <tr>
       <th>Question</th>
       <th>Answer</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -22,9 +22,11 @@
         <tr>
           <td><%= question.statement %></td>
           <td><%= question.answer.statement %></td>
-          <td><%= link_to 'Show', question %></td>
-          <td><%= link_to 'Edit', edit_question_path(question) %></td>
-          <td><%= link_to 'Destroy', question, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          <td>
+            <%= actions_group show_btn(question),
+                              edit_btn(edit_question_path(question)),
+                              delete_btn(question) %>
+          </td>
         </tr>
     <% end %>
     </tbody>
