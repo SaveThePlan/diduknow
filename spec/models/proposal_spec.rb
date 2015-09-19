@@ -16,6 +16,20 @@ RSpec.describe Proposal, type: :model do
       it { expect(b_proposal).to be_valid }
       it { expect(build :proposal, statement: nil).to_not be_valid }
     end
+
+    describe 'presence of question' do
+      it { expect(b_proposal).to be_valid }
+      it { expect(build :proposal, question: nil).to_not be_valid }
+    end
+  end
+
+
+  context 'relations' do
+    describe '.question (belongs to)' do
+      subject { b_proposal }
+      it { expect(subject).to respond_to(:question) }
+      it { expect(subject.question).to be_a Question }
+    end
   end
 
 

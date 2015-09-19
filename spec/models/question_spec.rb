@@ -21,6 +21,11 @@ RSpec.describe Question, type: :model do
       it { expect(b_question).to be_valid }
       it { expect(build :question, lesson: nil).to_not be_valid }
     end
+
+    describe 'presence of answer' do
+      it { expect(b_question).to be_valid }
+      it { expect(build :question_no_answer).to_not be_valid }
+    end
   end
 
 
@@ -29,6 +34,12 @@ RSpec.describe Question, type: :model do
       subject { b_question }
       it { expect(subject).to respond_to(:lesson) }
       it { expect(subject.lesson).to be_a Lesson }
+    end
+
+    describe '.answer (has_one)' do
+      subject { b_question }
+      it { expect(subject).to respond_to(:answer) }
+      it { expect(subject.answer).to be_a Proposal }
     end
   end
 

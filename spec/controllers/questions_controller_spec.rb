@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
 
+  let(:answer_attributes) {
+    attributes_for :proposal
+  }
+
   let(:valid_attributes) {
-    attributes_for :question
+    attributes_for :question, answer_attributes: answer_attributes
   }
 
   let(:invalid_attributes) {

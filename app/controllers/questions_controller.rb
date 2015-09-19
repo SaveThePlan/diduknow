@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = @lesson.questions.build
+    @question.build_answer
   end
 
   # GET /questions/1/edit

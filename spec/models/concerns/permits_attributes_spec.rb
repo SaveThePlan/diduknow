@@ -3,7 +3,21 @@ require 'rails_helper'
 class MinimalTestModel
   include PermitsAttributes
 
+  def self.rejected_fields=(val)
+    @rejected_fields = val
+  end
+
   def self.attribute_names; end
+  def self.nested_attributes_options
+    {}
+  end
+  def self.reflect_on_all_associations(arg)
+    {}
+  end
+end
+
+class Nested
+  include PermitsAttributes
 end
 
 

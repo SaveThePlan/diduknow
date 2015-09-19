@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917144923) do
+ActiveRecord::Schema.define(version: 20150919142000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,9 +46,12 @@ ActiveRecord::Schema.define(version: 20150917144923) do
 
   create_table "proposals", force: :cascade do |t|
     t.string   "statement"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "question_id"
   end
+
+  add_index "proposals", ["question_id"], name: "index_proposals_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.string   "statement"
@@ -98,5 +101,6 @@ ActiveRecord::Schema.define(version: 20150917144923) do
   add_foreign_key "chapters", "courses"
   add_foreign_key "courses", "users"
   add_foreign_key "lessons", "chapters"
+  add_foreign_key "proposals", "questions"
   add_foreign_key "questions", "lessons"
 end
