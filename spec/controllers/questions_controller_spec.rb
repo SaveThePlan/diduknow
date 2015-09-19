@@ -91,7 +91,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it "redirects to the created question" do
         post :create, {lesson_id: lesson.to_param, :question => valid_attributes}, valid_session
-        expect(response).to redirect_to(Question.last)
+        expect(response).to redirect_to(lesson_questions_path(lesson))
       end
     end
 
@@ -130,7 +130,7 @@ RSpec.describe QuestionsController, type: :controller do
       it "redirects to the question" do
         question = create :question
         put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-        expect(response).to redirect_to(question)
+        expect(response).to redirect_to(lesson_questions_path(question.lesson))
       end
     end
 
