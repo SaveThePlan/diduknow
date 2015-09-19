@@ -7,6 +7,10 @@ RSpec.describe QuestionsController, type: :routing do
       expect(:get => "/lessons/11/questions").to route_to("questions#index", lesson_id: '11')
     end
 
+    it "routes to #play" do
+      expect(:get => "/lessons/11/questions/play").to route_to("questions#play", lesson_id: '11')
+    end
+
     it "routes to #new" do
       expect(:get => "/lessons/11/questions/new").to route_to("questions#new", lesson_id: '11')
     end

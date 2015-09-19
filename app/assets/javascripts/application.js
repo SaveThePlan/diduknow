@@ -1,4 +1,4 @@
-// require filename
+//= require survey
 
 $(document).ready(function () {
     $(".tablesorter").tablesorter();

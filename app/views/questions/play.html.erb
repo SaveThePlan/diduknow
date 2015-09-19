@@ -1,0 +1,35 @@
+<div class="content-box col-centered survey-container">
+  <h2>
+    <div class="btn-group pull-right">
+      <%= link_to lesson_path(@lesson), class: 'btn btn-danger btn-xs' do %>
+          <span class="glyphicon glyphicon-stop"></span> Stop
+      <% end %>
+    </div>
+    Questions: <%= @lesson.title %>
+  </h2>
+
+  <% card_index = 0 %>
+  <% @questions.each do |question| %>
+      <% card_index += 1 %>
+      <div class="survey-card" id="card-<%= card_index %>" data-card="<%= card_index %>">
+        <div class="question">
+          <p><%= question.statement %></p>
+        </div>
+
+        <div class="answer">
+          <p><%= question.answer.statement %></p>
+          <button class="btn btn-success">
+            <span class="glyphicon glyphicon-play"></span> Next
+          </button>
+        </div>
+      </div>
+  <% end %>
+
+  <div class="survey-card" id="card-end">
+    <div>
+      <%= link_to lesson_path(@lesson), class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-stop"></span> Stop
+      <% end %>
+    </div>
+  </div>
+</div>

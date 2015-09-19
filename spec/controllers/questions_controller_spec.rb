@@ -37,6 +37,20 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe "GET #play" do
+    it "assigns lesson as @lesson" do
+      get :play, {lesson_id: lesson.to_param}, valid_session
+      expect(assigns(:lesson)).to eq(lesson)
+    end
+
+    it "assigns all questions as @questions" do
+      question = create :question, lesson: lesson
+      fake_question = create :question
+      get :play, {lesson_id: lesson.to_param}, valid_session
+      expect(assigns(:questions)).to eq([question])
+    end
+  end
+
   describe "GET #show" do
     it "assigns the requested question as @question" do
       question = create :question

@@ -6,7 +6,6 @@
 // load bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "bootstrap-datetimepicker";
 
 @import "jquery-tablesorter/theme.default";
 
@@ -35,3 +34,4 @@ img {
 }
 
 @import "main";
+@import "survey";

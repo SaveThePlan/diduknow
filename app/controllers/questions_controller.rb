@@ -1,10 +1,15 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :set_lesson, only: [:index, :new, :create]
+  before_action :set_lesson, only: [:index, :new, :create, :play]
 
   # GET /questions
   # GET /questions.json
   def index
+    @questions = @lesson.questions
+  end
+
+  # GET /questions/play
+  def play
     @questions = @lesson.questions
   end
 

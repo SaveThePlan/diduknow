@@ -1,11 +1,11 @@
 <div class="content-box col-centered">
   <h2>
-    <%= @chapter.title %>
     <div class="btn-group pull-right">
       <%= link_to new_chapter_lesson_path(@chapter), class: 'btn btn-primary btn-xs' do %>
           <span class="glyphicon glyphicon-plus"></span> New Lesson
       <% end %>
     </div>
+    <%= @chapter.title %>
   </h2>
 
   <table class="table">

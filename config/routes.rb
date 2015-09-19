@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :courses, shallow: true do
     resources :chapters, shallow: true do
       resources :lessons, shallow: true do
-        resources :questions
+        resources :questions do
+          get :play, on: :collection
+        end
       end
     end
   end

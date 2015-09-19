@@ -149,8 +149,12 @@
 
     .btn {
       margin-top: -.4em;
-      background-color: $greenColor;
       padding: .2em .5em;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: $greenColor;
     }
   }
 }

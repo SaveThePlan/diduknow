@@ -1,0 +1,27 @@
+.survey-container {
+  background-color: $primaryTextColor;
+  position: relative;
+  //min-height: 300px;
+
+  .survey-card {
+    background-color: $whiteColor;
+    margin: 3em;
+
+    div {
+      text-align: center;
+      padding: 2em;
+    }
+
+    .question {
+      margin: 0 0 1em 0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .answer {
+      margin: 1em 0 0 0;
+      color: $whiteColor;
+      background-color: $secondaryTextColor;
+    }
+  }
+}
